@@ -27,11 +27,11 @@ public class PaytreeDataSourceConfig extends  DataSourceConfig{
     @Primary
     public DataSource getPaytreeDataSource(){
         DruidDataSource dataSource=new DruidDataSource();
-        dataSource.setDriverClassName(datasource.getPaytreeDriverClassName());
-        dataSource.setDbType(datasource.getPaytreeType());
-        dataSource.setUsername(datasource.getPaytreeUsername());
-        dataSource.setPassword(datasource.getPaytreePassword());
-        dataSource.setUrl(datasource.getPaytreeUrl());
+        dataSource.setDriverClassName(datasource.getPaytree().getDriverClassName());
+        dataSource.setDbType(datasource.getPaytree().getType());
+        dataSource.setUsername(datasource.getPaytree().getUsername());
+        dataSource.setPassword(datasource.getPaytree().getPassword());
+        dataSource.setUrl(datasource.getPaytree().getUrl());
         dataSource.setInitialSize(druid.getInitialSize());
         dataSource.setMinIdle(druid.getMinIdle());
         dataSource.setMaxActive(druid.getMaxActive());
