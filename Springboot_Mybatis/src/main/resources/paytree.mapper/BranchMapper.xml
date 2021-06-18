@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.paytree.mapper.BranchMapper">
+    <resultMap id="BaseResultMap" type="com.example.paytree.entity.Branch">
+        <id column="branch_id" property="branchId" jdbcType="INTEGER"/>
+        <result column="branch_code" property="branchCode" jdbcType="VARCHAR"/>
+        <result column="branch_self_code" property="branchSelfCode" jdbcType="VARCHAR"/>
+        <result column="apply_branch_code" property="applyBranchCode" jdbcType="VARCHAR"/>
+        <result column="branch_name" property="branchName" jdbcType="VARCHAR"/>
+        <result column="branch_kana_name" property="branchKanaName" jdbcType="VARCHAR"/>
+        <result column="branch_roma_name" property="branchRomaName" jdbcType="VARCHAR"/>
+        <result column="level" property="level" jdbcType="VARCHAR"/>
+        <result column="agent_code" property="agentCode" jdbcType="VARCHAR"/>
+        <result column="parent_code" property="parentCode" jdbcType="VARCHAR"/>
+        <result column="contract_sign_date" property="contractSignDate" jdbcType="TIMESTAMP"/>
+        <result column="contract_mod_date" property="contractModDate" jdbcType="TIMESTAMP"/>
+        <result column="contract_discharge_date" property="contractDischargeDate" jdbcType="TIMESTAMP"/>
+        <result column="refund_day" property="refundDay" jdbcType="INTEGER"/>
+        <result column="sale_end_date" property="saleEndDate" jdbcType="VARCHAR"/>
+        <result column="clearing_date" property="clearingDate" jdbcType="VARCHAR"/>
+        <result column="arrive_dates" property="arriveDates" jdbcType="VARCHAR"/>
+        <result column="contact_name" property="contactName" jdbcType="VARCHAR"/>
+        <result column="contact_kana_name" property="contactKanaName" jdbcType="VARCHAR"/>
+        <result column="department_name" property="departmentName" jdbcType="VARCHAR"/>
+        <result column="charge_name" property="chargeName" jdbcType="VARCHAR"/>
+        <result column="region_province" property="regionProvince" jdbcType="VARCHAR"/>
+        <result column="region_city_county" property="regionCityCounty" jdbcType="VARCHAR"/>
+        <result column="house_num" property="houseNum" jdbcType="VARCHAR"/>
+        <result column="mail_code" property="mailCode" jdbcType="VARCHAR"/>
+        <result column="house_name" property="houseName" jdbcType="VARCHAR"/>
+        <result column="tel" property="tel" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="fax_num" property="faxNum" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="account_id" property="accountId" jdbcType="INTEGER"/>
+        <result column="journal_type" property="journalType" jdbcType="VARCHAR"/>
+        <result column="pay_type" property="payType" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="refund_flag" property="refundFlag" jdbcType="VARCHAR"/>
+        <result column="operator" property="operator" jdbcType="VARCHAR"/>
+        <result column="service_mode" property="serviceMode" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="ext_fld1" property="extFld1" jdbcType="VARCHAR"/>
+        <result column="ext_fld2" property="extFld2" jdbcType="VARCHAR"/>
+        <result column="identify_auto_barcode_flg" property="identifyAutoBarcodeFlg" jdbcType="VARCHAR"/>
+        <result column="shop_temp_code" property="shopTempCode" jdbcType="VARCHAR"/>
+        <result column="jcb_branch_code" property="jcbBranchCode" jdbcType="VARCHAR"/>
+        <result column="auto_receipt_no_flg" property="autoReceiptNoFlg" jdbcType="VARCHAR"/>
+        <result column="bank_pay_terminal_id" property="bankPayTerminalId" jdbcType="VARCHAR"/>
+    </resultMap>
+    <insert id="insertBranch" parameterType="java.util.List">
+ insert into branch (branch_code, branch_self_code, apply_branch_code,branch_name,
+      branch_kana_name, branch_roma_name, level,
+      agent_code, parent_code, contract_sign_date,
+      contract_mod_date, contract_discharge_date, refund_day,
+      sale_end_date, clearing_date, arrive_dates,
+      contact_name, contact_kana_name, department_name,
+      charge_name, region_province, region_city_county,
+      house_num, mail_code, house_name,
+      tel, phone, fax_num, email, account_id, journal_type,
+      pay_type, identify_auto_barcode_flg, status, refund_flag, operator, service_mode, shop_temp_code,
+      create_time, ext_fld1, ext_fld2, jcb_branch_code, auto_receipt_no_flg, bank_pay_terminal_id)
+    values
+    <foreach collection="list" item="branch" separator=",">
+    (#{branch.branchCode,jdbcType=VARCHAR},
+        #{branch.branchSelfCode,jdbcType=VARCHAR},
+        #{branch.applyBranchCode,jdbcType=VARCHAR},
+        #{branch.branchName,jdbcType=VARCHAR},
+        #{branch.branchKanaName,jdbcType=VARCHAR},
+        #{branch.branchRomaName,jdbcType=VARCHAR},
+        #{branch.level,jdbcType=VARCHAR},
+        #{branch.agentCode,jdbcType=VARCHAR},
+        #{branch.parentCode,jdbcType=VARCHAR},
+        #{branch.contractSignDate,jdbcType=TIMESTAMP},
+        #{branch.contractModDate,jdbcType=TIMESTAMP},
+        #{branch.contractDischargeDate,jdbcType=TIMESTAMP},
+        #{branch.refundDay,jdbcType=INTEGER},
+        #{branch.saleEndDate,jdbcType=VARCHAR},
+        #{branch.clearingDate,jdbcType=VARCHAR},
+        #{branch.arriveDates,jdbcType=VARCHAR},
+        #{branch.contactName,jdbcType=VARCHAR},
+        #{branch.contactKanaName,jdbcType=VARCHAR},
+        #{branch.departmentName,jdbcType=VARCHAR},
+        #{branch.chargeName,jdbcType=VARCHAR},
+        #{branch.regionProvince,jdbcType=VARCHAR},
+        #{branch.regionCityCounty,jdbcType=VARCHAR},
+        #{branch.houseNum,jdbcType=VARCHAR},
+        #{branch.mailCode,jdbcType=VARCHAR},
+        #{branch.houseName,jdbcType=VARCHAR},
+        #{branch.tel,jdbcType=VARCHAR},
+        #{branch.phone,jdbcType=VARCHAR},
+        #{branch.faxNum,jdbcType=VARCHAR},
+        #{branch.email,jdbcType=VARCHAR},
+        #{branch.accountId,jdbcType=INTEGER},
+        #{branch.journalType,jdbcType=VARCHAR},
+        #{branch.payType,jdbcType=VARCHAR},
+        #{branch.identifyAutoBarcodeFlg,jdbcType=VARCHAR},
+        #{branch.status,jdbcType=VARCHAR},
+        #{branch.refundFlag,jdbcType=VARCHAR},
+        #{branch.operator,jdbcType=VARCHAR},
+        #{branch.serviceMode,jdbcType=VARCHAR},
+        #{branch.shopTempCode,jdbcType=VARCHAR},
+        #{branch.createTime,jdbcType=TIMESTAMP},
+        #{branch.extFld1,jdbcType=VARCHAR},
+        #{branch.extFld2,jdbcType=VARCHAR},
+        #{branch.jcbBranchCode,jdbcType=VARCHAR} ,
+        #{branch.autoReceiptNoFlg,jdbcType=VARCHAR},
+        #{branch.bankPayTerminalId,jdbcType=VARCHAR})
+    </foreach>
+    </insert>
+</mapper>

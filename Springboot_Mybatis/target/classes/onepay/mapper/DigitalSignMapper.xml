@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.onepay.mapper.OnepayDigitalSignMapper">
+    <resultMap id="BaseResultMap" type="com.example.onepay.entity.DigitalSign">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="branch_code" property="branchCode" jdbcType="VARCHAR"/>
+        <result column="terminal_code" property="terminalCode" jdbcType="VARCHAR"/>
+        <result column="client_public_key" property="clientPublicKey" jdbcType="VARCHAR"/>
+        <result column="client_private_key" property="clientPrivateKey" jdbcType="VARCHAR"/>
+        <result column="server_public_key" property="serverPublicKey" jdbcType="VARCHAR"/>
+        <result column="server_private_key" property="serverPrivateKey" jdbcType="VARCHAR"/>
+        <result column="cipher_type" property="cipherType" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="operator" property="operator" jdbcType="VARCHAR"/>
+        <result column="ext_field1" property="extField1" jdbcType="VARCHAR"/>
+        <result column="ext_field2" property="extField2" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getPrivateKey" resultType="java.lang.String" parameterType="com.example.paytree.entity.DigitalSign">
+        select client_private_key
+        from digital_sign
+        <where>
+            <if test="terminalCode !=null and terminalCode !=''">
+               and terminal_code=#{terminalCode,jdbcType=VARCHAR}
+            </if>
+            <if test="branchCode !=null and branchCode !=''">
+                and branch_code=#{branchCode,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+    <select id="getPublicKey" resultType="java.lang.String" parameterType="com.example.paytree.entity.DigitalSign">
+        select server_public_key
+        from digital_sign
+        <where>
+            <if test="terminalCode !=null and terminalCode !=''">
+                and terminal_code=#{terminalCode,jdbcType=VARCHAR}
+            </if>
+            <if test="branchCode !=null and branchCode !=''">
+                and branch_code=#{branchCode,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+</mapper>

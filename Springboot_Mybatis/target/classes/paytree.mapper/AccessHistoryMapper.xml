@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.paytree.mapper.AccessHistoryMapper">
+    <resultMap id="BaseResultMap" type="com.example.paytree.entity.AccessHistory">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="post_data" property="postData" jdbcType="VARCHAR"/>
+        <result column="api_url" property="apiUrl" jdbcType="VARCHAR"/>
+        <result column="access_type" property="accessType" jdbcType="CHAR"/>
+        <result column="parent_id" property="parentId" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="ext_field1" property="extField1" jdbcType="VARCHAR"/>
+        <result column="ext_field2" property="extField2" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="isPaytree" parameterType="java.util.Map" resultType="java.lang.Long">
+        select count(1) from access_history where create_time>#{createTime} and access_type='0' and api_url like CONCAT('%',#{token});
+    </select>
+    <select id ="getAccessHistoryList" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select * from access_history
+        where
+        create_time>#{createTime} and (
+        id in (
+        SELECT id FROM access_history
+                <where>
+                <if test="createTime!='' and createTime!=null">
+                    create_time > #{createTime} AND access_type = '0' AND
+                </if>
+                     api_url LIKE  CONCAT('%',#{token})
+                </where>)
+        or
+            parent_id in(
+                 SELECT id FROM access_history
+        <where>
+            <if test="createTime!='' and createTime!=null">
+                create_time > #{createTime} AND access_type = '0' AND
+            </if>
+             api_url LIKE  CONCAT('%',#{token})
+        </where>
+            )
+         )
+    </select>
+</mapper>

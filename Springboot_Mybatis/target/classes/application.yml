@@ -1,0 +1,28 @@
+server:
+  port: 1995
+spring:
+  application:
+    name: demo
+    datasource:
+      paytree-driver-class-name: com.mysql.cj.jdbc.Driver
+      paytree-type: com.alibaba.druid.pool.DruidDataSource
+#      paytree-url: jdbc:mysql://hjp-test.cnbliujeqicw.ap-northeast-1.rds.amazonaws.com/wpay_better_test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+      paytree-url: jdbc:mysql://hjp-test-aurora.cluster-cnbliujeqicw.ap-northeast-1.rds.amazonaws.com/wpay_better_test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+      paytree-username: paytree
+      paytree-password: Hundsun123##
+      onepay-driver-class-name: com.mysql.cj.jdbc.Driver
+      onepay-type: com.alibaba.druid.pool.DruidDataSource
+      onepay-url: jdbc:mysql://hjp-test.cnbliujeqicw.ap-northeast-1.rds.amazonaws.com/onepay_db_test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+      onepay-username: onepay
+      onepay-password: Hundsun123##
+      #onepay 新db
+#      onepayNew-driver-class-name: com.mysql.cj.jdbc.Driver
+#      onepayNew-type: com.alibaba.druid.pool.DruidDataSource
+#      onepayNew-url: jdbc:mysql://hjp-test.cnbliujeqicw.ap-northeast-1.rds.amazonaws.com/onepay_test_new?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+#      onepayNew-username: onepay
+#      onepayNew-password: Hundsun123##
+    druid:
+      initialSize: 5
+      minIdle: 5
+      maxActive: 15
+

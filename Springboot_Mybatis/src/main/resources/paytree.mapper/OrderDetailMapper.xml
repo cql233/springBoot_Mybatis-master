@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.paytree.mapper.OrderDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.example.paytree.entity.OrderDetail" >
+    <id column="order_detail_id" property="orderDetailId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="currency_code" property="currencyCode" jdbcType="VARCHAR" />
+    <result column="terminal_code" property="terminalCode" jdbcType="VARCHAR" />
+    <result column="locale" property="locale" jdbcType="VARCHAR" />
+    <result column="time_zone" property="timeZone" jdbcType="VARCHAR" />
+    <result column="trans_type" property="transType" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="refund_amount" property="refundAmount" jdbcType="DECIMAL" />
+    <result column="refund_reason" property="refundReason" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="goods_tag" property="goodsTag" jdbcType="VARCHAR" />
+    <result column="access_token" property="accessToken" jdbcType="VARCHAR" />
+    <result column="trans_id" property="transId" jdbcType="VARCHAR" />
+    <result column="trans_status" property="transStatus" jdbcType="VARCHAR" />
+    <result column="trans_time" property="transTime" jdbcType="CHAR" />
+    <result column="result_code" property="resultCode" jdbcType="VARCHAR" />
+    <result column="error_code" property="errorCode" jdbcType="VARCHAR" />
+    <result column="error_info" property="errorInfo" jdbcType="VARCHAR" />
+    <result column="parent_detail_id" property="parentDetailId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="valid_time" property="validTime" jdbcType="VARCHAR" />
+    <result column="ext_field1" property="extField1" jdbcType="VARCHAR" />
+    <result column="ext_field2" property="extField2" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="getOrderDetailList" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select *  from order_detail
+    <where>
+      order_id = (
+        select order_id from order_detail
+            <where>
+                <if test="orderId!=''and orderId!=null">
+                  and order_id=#{orderId}
+                </if>
+              <if test="token!=''and token!=null">
+                and  access_token=#{token,jdbcType=VARCHAR}
+              </if>
+              <if test="detailId!=null and detailId!=''">
+                and  order_detail_id=#{detailId,jdbcType=VARCHAR}
+              </if>
+            </where>
+      )
+    </where>
+  </select>
+  <insert id="insert" parameterType="java.util.List">
+insert into order_detail
+		(order_detail_id, order_id, currency_code,
+		terminal_code, locale,
+		time_zone,
+		trans_type, amount, refund_amount,
+		refund_reason, remark,
+		goods_tag,
+		access_token, trans_id, trans_status,
+		trans_time,
+		result_code, error_code,
+		error_info,parent_detail_id,create_time,
+		update_time, valid_time, ext_field1, ext_field2
+		)
+		values
+    <foreach collection="list" item="orderDetail" index="index" separator="," >
+		(
+		#{orderDetail.orderDetailId,jdbcType=VARCHAR},
+		#{orderDetail.orderId,jdbcType=VARCHAR},
+		#{orderDetail.currencyCode,jdbcType=VARCHAR},
+		#{orderDetail.terminalCode,jdbcType=VARCHAR},
+		#{orderDetail.locale,jdbcType=VARCHAR},
+		 #{orderDetail.timeZone,jdbcType=VARCHAR},
+		#{orderDetail.transType,jdbcType=VARCHAR},
+		#{orderDetail.amount,jdbcType=DECIMAL},
+		#{orderDetail.refundAmount,jdbcType=DECIMAL},
+		#{orderDetail.refundReason,jdbcType=VARCHAR},
+		#{orderDetail.remark,jdbcType=VARCHAR},
+		#{orderDetail.goodsTag,jdbcType=VARCHAR},
+		#{orderDetail.accessToken,jdbcType=VARCHAR},
+		 #{orderDetail.transId,jdbcType=VARCHAR},
+		#{orderDetail.transStatus,jdbcType=VARCHAR},
+		#{orderDetail.transTime,jdbcType=CHAR},
+		#{orderDetail.resultCode,jdbcType=VARCHAR},
+		#{orderDetail.errorCode,jdbcType=VARCHAR},
+		#{orderDetail.errorInfo,jdbcType=VARCHAR},
+		#{orderDetail.parentDetailId,jdbcType=VARCHAR},
+		now(),
+		now(),
+		#{orderDetail.validTime,jdbcType=VARCHAR},
+		#{orderDetail.extField1,jdbcType=VARCHAR},
+		#{orderDetail.extField2,jdbcType=VARCHAR}
+		)
+    </foreach>
+  </insert>
+</mapper>

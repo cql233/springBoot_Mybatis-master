@@ -1,0 +1,95 @@
+{
+  "groups": [
+    {
+      "name": "spring.application",
+      "type": "com.example.Druid.DataSourceConfig",
+      "sourceType": "com.example.Druid.DataSourceConfig"
+    },
+    {
+      "name": "spring.application.datasource",
+      "type": "com.example.Druid.DataSourceConfig$DoubleDataSource",
+      "sourceType": "com.example.Druid.DataSourceConfig"
+    },
+    {
+      "name": "spring.application.druid",
+      "type": "com.example.Druid.DataSourceConfig$Druid",
+      "sourceType": "com.example.Druid.DataSourceConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.application.datasource.onepay-driver-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.example.Druid.DataSourceConfig$DoubleDataSource"
+    },
+    {
+      "name": "spring.application.datasource.onepay-password",
+      "type": "java.lang.String",
+      "sourceType": "com.example.Druid.DataSourceConfig$DoubleDataSource"
+    },
+    {
+      "name": "spring.application.datasource.onepay-type",
+      "type": "java.lang.String",
+      "sourceType": "com.example.Druid.DataSourceConfig$DoubleDataSource"
+    },
+    {
+      "name": "spring.application.datasource.onepay-url",
+      "type": "java.lang.String",
+      "sourceType": "com.example.Druid.DataSourceConfig$DoubleDataSource"
+    },
+    {
+      "name": "spring.application.datasource.onepay-username",
+      "type": "java.lang.String",
+      "sourceType": "com.example.Druid.DataSourceConfig$DoubleDataSource"
+    },
+    {
+      "name": "spring.application.datasource.paytree-driver-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.example.Druid.DataSourceConfig$DoubleDataSource"
+    },
+    {
+      "name": "spring.application.datasource.paytree-password",
+      "type": "java.lang.String",
+      "sourceType": "com.example.Druid.DataSourceConfig$DoubleDataSource"
+    },
+    {
+      "name": "spring.application.datasource.paytree-type",
+      "type": "java.lang.String",
+      "sourceType": "com.example.Druid.DataSourceConfig$DoubleDataSource"
+    },
+    {
+      "name": "spring.application.datasource.paytree-url",
+      "type": "java.lang.String",
+      "sourceType": "com.example.Druid.DataSourceConfig$DoubleDataSource"
+    },
+    {
+      "name": "spring.application.datasource.paytree-username",
+      "type": "java.lang.String",
+      "sourceType": "com.example.Druid.DataSourceConfig$DoubleDataSource"
+    },
+    {
+      "name": "spring.application.druid.initial-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.Druid.DataSourceConfig$Druid",
+      "defaultValue": 0
+    },
+    {
+      "name": "spring.application.druid.max-active",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.Druid.DataSourceConfig$Druid",
+      "defaultValue": 0
+    },
+    {
+      "name": "spring.application.druid.min-idle",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.Druid.DataSourceConfig$Druid",
+      "defaultValue": 0
+    },
+    {
+      "name": "spring.application.name",
+      "type": "java.lang.String",
+      "sourceType": "com.example.Druid.DataSourceConfig"
+    }
+  ],
+  "hints": []
+}

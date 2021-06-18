@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 造数据使用-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.paytree.mapper.CheckFileRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.example.paytree.entity.CheckFileRecord" >
+    <id column="check_file_record_id" property="checkFileRecordId" jdbcType="INTEGER" />
+    <result column="pay_type" property="payType" jdbcType="VARCHAR" />
+    <result column="check_date" property="checkDate" jdbcType="DATE" />
+    <result column="channel_partner_acct" property="channelPartnerAcct" jdbcType="VARCHAR" />
+    <result column="channel_create_time" property="channelCreateTime" jdbcType="TIMESTAMP" />
+    <result column="channel_trans_id" property="channelTransId" jdbcType="VARCHAR" />
+    <result column="channel_amount" property="channelAmount" jdbcType="DECIMAL" />
+    <result column="channel_fee" property="channelFee" jdbcType="DECIMAL" />
+    <result column="channel_trans_type" property="channelTransType" jdbcType="VARCHAR" />
+    <result column="channel_trans_status" property="channelTransStatus" jdbcType="VARCHAR" />
+    <result column="out_trans_id" property="outTransId" jdbcType="VARCHAR" />
+    <result column="orig_out_trans_id" property="origOutTransId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="upadte_time" property="upadteTime" jdbcType="TIMESTAMP" />
+    <result column="is_checked" property="isChecked" jdbcType="VARCHAR" />
+    <result column="ext_fld1" property="extFld1" jdbcType="VARCHAR" />
+    <result column="ext_fld2" property="extFld2" jdbcType="VARCHAR" />
+  </resultMap>
+    <insert id="insert" parameterType="java.util.List" >
+            insert into check_file_record ( pay_type, check_date,
+      channel_partner_acct, channel_create_time,
+      channel_trans_id, channel_amount, channel_fee,
+      channel_trans_type, channel_trans_status, out_trans_id,
+      orig_out_trans_id, create_time, upadte_time,
+      is_checked, ext_fld1, ext_fld2
+      )
+    values
+        <foreach collection="list" item="checkFileRecord" index="index" separator="," >
+            (
+            #{checkFileRecord.payType,jdbcType=VARCHAR},
+            #{checkFileRecord.checkDate,jdbcType=DATE},
+            #{checkFileRecord.channelPartnerAcct,jdbcType=VARCHAR},
+            #{checkFileRecord.channelCreateTime,jdbcType=TIMESTAMP},
+            #{checkFileRecord.channelTransId,jdbcType=VARCHAR},
+            #{checkFileRecord.channelAmount,jdbcType=DECIMAL},
+            #{checkFileRecord.channelFee,jdbcType=DECIMAL},
+            #{checkFileRecord.channelTransType,jdbcType=VARCHAR},
+            #{checkFileRecord.channelTransStatus,jdbcType=VARCHAR},
+            #{checkFileRecord.outTransId,jdbcType=VARCHAR},
+            #{checkFileRecord.origOutTransId,jdbcType=VARCHAR},
+            #{checkFileRecord.createTime,jdbcType=TIMESTAMP},
+            #{checkFileRecord.upadteTime,jdbcType=TIMESTAMP},
+            #{checkFileRecord.isChecked,jdbcType=VARCHAR},
+            #{checkFileRecord.extFld1,jdbcType=VARCHAR},
+            #{checkFileRecord.extFld2,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+</mapper>

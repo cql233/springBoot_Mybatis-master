@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.onepay.mapper.OnepayOrderFlowMapper">
+    <resultMap id="BaseResultMap" type="com.example.onepay.entity.OrderFlow">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="order_id" property="orderId" jdbcType="VARCHAR"/>
+        <result column="parent_trans_status" property="parentTransStatus" jdbcType="CHAR"/>
+        <result column="parent_flow_id" property="parentFlowId" jdbcType="VARCHAR"/>
+        <result column="access_token" property="accessToken" jdbcType="VARCHAR"/>
+        <result column="service_mode" property="serviceMode" jdbcType="CHAR"/>
+        <result column="amount" property="amount" jdbcType="DECIMAL"/>
+        <result column="refund_amount" property="refundAmount" jdbcType="DECIMAL"/>
+        <result column="currency_code" property="currencyCode" jdbcType="CHAR"/>
+        <result column="user_code" property="userCode" jdbcType="VARCHAR"/>
+        <result column="qr_code" property="qrCode" jdbcType="VARCHAR"/>
+        <result column="mch_id" property="mchId" jdbcType="VARCHAR"/>
+        <result column="sub_mch_id" property="subMchId" jdbcType="VARCHAR"/>
+        <result column="app_id" property="appId" jdbcType="VARCHAR"/>
+        <result column="sub_app_id" property="subAppId" jdbcType="VARCHAR"/>
+        <result column="channel_key" property="channelKey" jdbcType="VARCHAR"/>
+        <result column="branch_code" property="branchCode" jdbcType="VARCHAR"/>
+        <result column="terminal_code" property="terminalCode" jdbcType="VARCHAR"/>
+        <result column="pay_type" property="payType" jdbcType="CHAR"/>
+        <result column="pay_method" property="payMethod" jdbcType="CHAR"/>
+        <result column="order_status" property="orderStatus" jdbcType="CHAR"/>
+        <result column="trans_type" property="transType" jdbcType="CHAR"/>
+        <result column="trans_time" property="transTime" jdbcType="TIMESTAMP"/>
+        <result column="pay_trans_time" property="payTransTime" jdbcType="TIMESTAMP"/>
+        <result column="trans_status" property="transStatus" jdbcType="CHAR"/>
+        <result column="receipt_no" property="receiptNo" jdbcType="VARCHAR"/>
+        <result column="pay_code" property="payCode" jdbcType="VARCHAR"/>
+        <result column="value_type" property="valueType" jdbcType="CHAR"/>
+        <result column="valid_time" property="validTime" jdbcType="INTEGER"/>
+        <result column="result_code" property="resultCode" jdbcType="VARCHAR"/>
+        <result column="error_code" property="errorCode" jdbcType="VARCHAR"/>
+        <result column="error_info" property="errorInfo" jdbcType="LONGVARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="refund_reason" property="refundReason" jdbcType="VARCHAR"/>
+        <result column="goods_tag" property="goodsTag" jdbcType="VARCHAR"/>
+        <result column="pay_platform_trans_time" property="payPlatformTransTime" jdbcType="TIMESTAMP"/>
+        <result column="pay_platform_trans_no" property="payPlatformTransNo" jdbcType="VARCHAR"/>
+        <result column="pay_platform_trans_id" property="payPlatformTransId" jdbcType="VARCHAR"/>
+        <result column="app_version" property="appVersion" jdbcType="VARCHAR"/>
+        <result column="time_zone" property="timeZone" jdbcType="VARCHAR"/>
+        <result column="locale" property="locale" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="ext_field1" property="extField1" jdbcType="VARCHAR"/>
+        <result column="ext_field2" property="extField2" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getOrderFlowList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select id,order_id,parent_trans_status,parent_flow_id,access_token,service_mode,amount,refund_amount,
+        currency_code,user_code,qr_code,mch_id,sub_mch_id,app_id,sub_app_id,channel_key,branch_code,
+        terminal_code,pay_type,pay_method,order_status,trans_type,trans_time,pay_trans_time,trans_status,
+        receipt_no,pay_code,value_type,valid_time,result_code,error_code,remark,refund_reason,goods_tag,
+        DATE_FORMAT(pay_platform_trans_time,'%Y-%m-%d %T') AS pay_platform_trans_time ,
+        pay_platform_trans_no,pay_platform_trans_id,app_version,time_zone,locale,
+        DATE_FORMAT(create_time,'%Y-%m-%d %T') AS create_time ,
+        DATE_FORMAT(update_time,'%Y-%m-%d %T') AS update_time,
+        ext_field1,ext_field2,error_info
+        from order_flow
+        <where>
+            order_id = (
+            select order_id from order_flow
+            <where>
+                <if test="orderId!=''and orderId!=null">
+                    and order_id=#{orderId}
+                </if>
+                <if test="token!=''and token!=null">
+                    and  access_token=#{token,jdbcType=VARCHAR}
+                </if>
+                <if test="detailId!=null and detailId!=''">
+                    and  id=#{detailId,jdbcType=VARCHAR}
+                </if>
+            </where>
+            )
+        </where>
+    </select>
+    <update id="update" parameterType="com.example.onepay.entity.OrderFlow">
+            update order_flow
+<set>
+        <if test="id != null">
+            id=#{id},
+        </if>
+        <if test="orderId != null">
+            order_id=#{orderId},
+        </if>
+        <if test="parentTransStatus != null">
+            parent_trans_status=#{parentTransStatus},
+        </if>
+        <if test="parentFlowId != null">
+            parent_flow_id=#{parentFlowId},
+        </if>
+        <if test="accessToken != null">
+            access_token=#{accessToken},
+        </if>
+        <if test="serviceMode != null">
+            service_mode=#{serviceMode},
+        </if>
+        <if test="amount != null">
+            amount=#{amount},
+        </if>
+        <if test="refundAmount != null">
+            refund_amount=#{refundAmount},
+        </if>
+        <if test="currencyCode != null">
+            currency_code=#{currencyCode},
+        </if>
+        <if test="userCode != null">
+            user_code=#{userCode},
+        </if>
+        <if test="qrCode != null">
+            qr_code=#{qrCode},
+        </if>
+        <if test="mchId != null">
+            mch_id=#{mchId},
+        </if>
+        <if test="subMchId != null">
+            sub_mch_id=#{subMchId},
+        </if>
+        <if test="appId != null">
+            app_id=#{appId},
+        </if>
+        <if test="subAppId != null">
+            sub_app_id=#{subAppId},
+        </if>
+        <if test="channelKey != null">
+            channel_key=#{channelKey},
+        </if>
+        <if test="branchCode != null">
+            branch_code=#{branchCode},
+        </if>
+        <if test="terminalCode != null">
+            terminal_code=#{terminalCode},
+        </if>
+        <if test="payType != null">
+            pay_type=#{payType},
+        </if>
+        <if test="payMethod != null">
+            pay_method=#{payMethod},
+        </if>
+        <if test="orderStatus != null">
+            order_status=#{orderStatus},
+        </if>
+        <if test="transType != null">
+            trans_type=#{transType},
+        </if>
+        <if test="transTime != null">
+            trans_time=#{transTime},
+        </if>
+        <if test="payTransTime != null">
+            pay_trans_time=#{payTransTime},
+        </if>
+        <if test="transStatus != null">
+            trans_status=#{transStatus},
+        </if>
+        <if test="receiptNo != null">
+            receipt_no=#{receiptNo},
+        </if>
+        <if test="payCode != null">
+            pay_code=#{payCode},
+        </if>
+        <if test="valueType != null">
+            value_type=${valueType},
+        </if>
+        <if test="validTime != null">
+            valid_time=#{validTime},
+        </if>
+        <if test="resultCode != null">
+            result_code=#{resultCode},
+        </if>
+        <if test="errorCode != null">
+            error_code=#{errorCode},
+        </if>
+        <if test="remark != null">
+            remark=#{remark},
+        </if>
+        <if test="refundReason != null">
+            refund_reason=#{refundReason},
+        </if>
+        <if test="goodsTag != null">
+            goods_tag=#{goodsTag},
+        </if>
+        <if test="payPlatformTransTime != null">
+            pay_platform_trans_time=#{payPlatformTransTime},
+        </if>
+        <if test="payPlatformTransNo != null">
+            pay_platform_trans_no=#{payPlatformTransNo},
+        </if>
+        <if test="payPlatformTransId != null">
+            pay_platform_trans_id=#{payPlatformTransId},
+        </if>
+        <if test="appVersion != null">
+            app_version=#{appVersion},
+        </if>
+        <if test="timeZone != null">
+            time_zone=#{timeZone},
+        </if>
+        <if test="locale != null">
+            locale=#{locale},
+        </if>
+        <if test="createTime != null">
+            create_time=#{createTime},
+        </if>
+        <if test="updateTime != null">
+            update_time=#{updateTime},
+        </if>
+        <if test="extField1 != null">
+            ext_field1=#{extField1},
+        </if>
+        <if test="extField2 != null">
+            ext_field2=#{extField2},
+        </if>
+        <if test="errorInfo != null">
+            error_info=#{errorInfo},
+        </if>
+</set>
+            <where>
+                access_token=#{accessToken,jdbcType=VARCHAR}
+            </where>
+    </update>
+</mapper>

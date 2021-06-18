@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.paytree.mapper.NotifyInfoMapper">
+    <resultMap id="BaseResultMap" type="com.example.paytree.entity.NotifyInfo">
+        <id column="order_detail_id" property="orderDetailId" jdbcType="VARCHAR"/>
+        <result column="notify_url" property="notifyUrl" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="ext_field1" property="extField1" jdbcType="VARCHAR"/>
+        <result column="ext_field2" property="extField2" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getNotifyInfo" parameterType="java.lang.String">
+        select * from notify_info where  order_detail_id=${detailId}
+    </select>
+</mapper>
