@@ -1,13 +1,12 @@
 package com.example.Druid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import lombok.AllArgsConstructor;
+import com.example.Druid.bean.Datasource;
+import com.example.Druid.bean.Druid;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * 〈〉
@@ -19,34 +18,12 @@ import lombok.Setter;
 
 @ConfigurationProperties(prefix = "spring.application")
 @Component
-@Getter
-@Setter
+@Data
 public class DataSourceConfig {
     private String name;
-    protected DoubleDataSource datasource=new DoubleDataSource();
-    protected Druid druid=new Druid();
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Getter
-    @Setter
-    public class DoubleDataSource {
-        protected String paytreeDriverClassName;
-        protected String paytreeType;
-        protected String paytreeUrl;
-        protected String paytreeUsername;
-        protected String paytreePassword;
-        protected String onepayDriverClassName;
-        protected String onepayType;
-        protected String onepayUrl;
-        protected String onepayUsername;
-        protected String onepayPassword;
-    }
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Data
-    public class Druid {
-        protected int initialSize;
-        protected int minIdle;
-        protected int maxActive;
-    }
+    @Autowired
+    public Datasource datasource;
+    @Autowired
+    public  Druid druid;
+
 }

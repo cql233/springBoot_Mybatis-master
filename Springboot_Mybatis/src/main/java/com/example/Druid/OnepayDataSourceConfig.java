@@ -25,11 +25,11 @@ public class OnepayDataSourceConfig extends  DataSourceConfig{
     @Bean(name="onepayDataSource")
     public DataSource getOnepayDataSource(){
         DruidDataSource dataSource=new DruidDataSource();
-        dataSource.setDriverClassName(datasource.getOnepayDriverClassName());
-        dataSource.setDbType(datasource.getOnepayType());
-        dataSource.setUsername(datasource.getOnepayUsername());
-        dataSource.setPassword(datasource.getOnepayPassword());
-        dataSource.setUrl(datasource.getOnepayUrl());
+        dataSource.setDriverClassName(datasource.getOnepay().getDriverClassName());
+        dataSource.setDbType(datasource.getOnepay().getType());
+        dataSource.setUsername(datasource.getOnepay().getUsername());
+        dataSource.setPassword(datasource.getOnepay().getPassword());
+        dataSource.setUrl(datasource.getOnepay().getUrl());
         dataSource.setInitialSize(druid.getInitialSize());
         dataSource.setMinIdle(druid.getMinIdle());
         dataSource.setMaxActive(druid.getMaxActive());

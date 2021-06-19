@@ -1,9 +1,11 @@
 package com.example.aop;
 
+import org.aopalliance.intercept.Joinpoint;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Aspect
+@Order(1)
 public class AopConfig {
         @Pointcut("execution(* com.example..*.*(..))")
     public void pointCut(){}
