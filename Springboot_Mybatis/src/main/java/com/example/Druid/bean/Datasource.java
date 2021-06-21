@@ -20,7 +20,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Datasource {
     @Autowired
-    private Paytree paytree;
+    public Paytree paytree;
     @Autowired
-    private  Onepay onepay;
+    public  Onepay onepay;
+
 }
