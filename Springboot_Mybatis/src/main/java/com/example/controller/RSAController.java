@@ -22,6 +22,9 @@ import com.example.util.Base64;
 import com.example.util.EncryptUtils;
 import com.example.util.RSAUtils;
 import com.example.util.StringUtils;
+import javax.servlet.http.HttpServletRequest;
+
+import static com.example.util.UrlCompareUtil.isPaytree;
 
 /**
  * 〈RSA 加签&验签使用〉
@@ -42,19 +45,30 @@ public PaytreeAccessHistoryService paytreeAccessHistoryService;
 public PaytreeDigitalSignService paytreeDigitalSignService;
 @Autowired
 public OnepayDigitalSignService onepayDigitalSignService;
+@Autowired
+private  HttpServletRequest request;
 
     public static final Logger LOG=Logger.getLogger(RSAController.class);
     @PostMapping(value = "/getSign/{mode}/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String GetSign(@RequestBody JSONObject requestInfo, @PathVariable String  mode, @PathVariable String  id){
-        LOG.info("233");
-        return getSignFromRSA(requestInfo,getPriKey(mode,id));
+        String url ="";
+        url = request.getScheme() +"://" + request.getServerName()
+                +":" +request.getServerPort()
+                + request.getServletPath();
+//        System.out.println(url);
+//        isPaytree(url);
+        return getSignFromRSA(requestInfo,getPriKey(mode,id,isPaytree(url)));
     }
 
     @PostMapping(value = "/getSign/{mode}/{id}/isCbwPay", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String GetSignForCbw(@RequestBody JSONObject requestInfo, @PathVariable String  mode, @PathVariable String  id){
-        return getSignFromRSAForCBW(requestInfo,getPriKey(mode,id));
+        String url ="";
+        url = request.getScheme() +"://" + request.getServerName()
+                +":" +request.getServerPort()
+                + request.getServletPath();
+        return getSignFromRSAForCBW(requestInfo,getPriKey(mode,id,isPaytree(url)));
     }
     @PostMapping(value = "/getPublicKey", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -92,33 +106,29 @@ public OnepayDigitalSignService onepayDigitalSignService;
         if(responseInfo==null||StringUtils.isEmpty(mode)||StringUtils.isEmpty(id)){
             return false;
         }
+        String url ="";
+        url = request.getScheme() +"://" + request.getServerName()
+                +":" +request.getServerPort()
+                + request.getServletPath();
         String jsonRes = JSONObject.toJSONString(responseInfo);
-        return EncryptUtils.verifyByRsa(jsonRes,getPulicKey(mode,id),"sign");
+        return EncryptUtils.verifyByRsa(jsonRes,getPulicKey(mode,id,isPaytree(url)),"sign");
     }
-    public String getPriKey(String mode,String id ){
+    public String getPriKey(String mode,String id,boolean isPaytree ){
         DigitalSign digitalSign= new DigitalSign();
         if("C01".equals(mode)){
             digitalSign.setTerminalCode(id);
         }else if("B01".equals(mode)){
             digitalSign.setBranchCode(id);
         }
-        String key=paytreeDigitalSignService.getPriKey(digitalSign);
-        if(StringUtils.isEmpty(key)){
-            key=onepayDigitalSignService.getPriKey(digitalSign);
-        }
-        return key;
+        return isPaytree?paytreeDigitalSignService.getPriKey(digitalSign):onepayDigitalSignService.getPriKey(digitalSign);
     }
-    public String getPulicKey(String mode,String id ){
+    public String getPulicKey(String mode,String id ,boolean isPaytree){
         DigitalSign digitalSign= new DigitalSign();
         if("C01".equals(mode)){
             digitalSign.setTerminalCode(id);
         }else if("B01".equals(mode)){
             digitalSign.setBranchCode(id);
         }
-        String key=paytreeDigitalSignService.getPubliKey(digitalSign);
-        if(StringUtils.isEmpty(key)){
-            key=onepayDigitalSignService.getPubliKey(digitalSign);
-        }
-        return key;
+        return isPaytree?paytreeDigitalSignService.getPubliKey(digitalSign):onepayDigitalSignService.getPubliKey(digitalSign);
     }
 }
