@@ -10,7 +10,7 @@
         <result column="ext_field1" property="extField1" jdbcType="VARCHAR"/>
         <result column="ext_field2" property="extField2" jdbcType="VARCHAR"/>
     </resultMap>
-    <select id="getNotifyInfo" parameterType="java.lang.String">
+    <select id="getNotifyInfo" parameterType="java.lang.String" resultMap="BaseResultMap">
         select * from notify_info where  order_detail_id=${detailId}
     </select>
 </mapper>
