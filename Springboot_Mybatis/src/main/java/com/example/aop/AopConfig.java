@@ -1,6 +1,6 @@
 package com.example.aop;
 
-import org.aopalliance.intercept.Joinpoint;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
